@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+}
+
+.coursesList {
+  margin: 10px;
+  width: 300px;
+  height: 30px;
+  font-size: 16px;
+}
+
+select {
+  display: block;
+}
+
+input {
+  display: inline-block;
+  margin: 10px;
+  padding: 4px;
+}

@@ -1,0 +1,29 @@
+.dropdown {
+  border: 1px solid #777777;
+  margin: 5px;
+  padding: 10px;
+  background: aliceblue;
+}
+.buttons {
+  padding: 0 10px;
+}
+.buttons--add {
+  width: 100px;
+  padding: 5px 0;
+}
+.submitButton {
+  padding: 5px 0;
+  margin-left: 5px;
+  display: inline-block;
+  width: 200px;
+}
+.resetButton {
+  padding: 5px 0;
+  margin-left: 5px;
+  display: inline-block;
+  width: 200px;
+}
+
+.disable-link {
+  pointer-events: none;
+}

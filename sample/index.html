@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+
+  <style>
+    form {
+      border: 1px solid black;
+      padding: 10px;
+    }
+
+    select {
+      width: 400px;
+      margin: 10px;
+      height: 40px;
+
+    }
+
+    option {
+      font-size: 1.3em;
+    }
+
+    form input[type="submit"] {
+      display: flex;
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <form method="POST" action="/form" id="form">
+      <input type="button" value="Add Course" onclick="addDesc()" />
+      <input type="submit" id="submit" />
+    </form>
+
+    <div id="description"></div>
+  </div>
+
+  <script>
+    let descArr = [];
+    let arr = [];
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200 && this.responseText) {
+        arr = JSON.parse(this.responseText);
+        //   console.log(arr);
+        populate(arr);
+      }
+    };
+
+    xhttp.open("GET", "http://localhost:7000/api/course", true);
+    xhttp.send();
+
+    //populating the select
+    var id;
+    function populate(arr) {
+      if (arr.length <= 0) {
+        alert("List is Empty Cannot add items");
+        console.log(descArr);
+        return;
+      }
+      id = Math.floor(Math.random() * 100000);
+      var form = document.getElementById("form");
+      var x = document.createElement("SELECT");
+      x.setAttribute("id", id);
+      x.setAttribute("name", "course");
+      form.appendChild(x);
+      for (var i = 0; i < arr.length; i++) {
+        var z = document.createElement("option");
+        var t = document.createTextNode(`${arr[i].name}`);
+        z.appendChild(t);
+        document.getElementById(id).appendChild(z);
+        z.setAttribute("value", arr[i].description);
+      }
+      var s = document.getElementById("form");
+      s.insertBefore(x, s.children[0]);
+    }
+
+    //Description
+    function addDesc() {
+      try {
+        var e = document.getElementById(id);
+        var course = e.options[e.selectedIndex].text;
+        //   console.log(course);
+        if (course === "Choose Your option") {
+          alert("Not a valid course");
+          return;
+        }
+        descArr.push(course);
+        /*arr = arr.filter(data => {
+          return data.name !== course;
+        });*/
+        populate(arr);
+      } catch (error) {
+        alert("Error Occurred");
+      }
+    }
+  </script>
+</body>
+
+</html>
